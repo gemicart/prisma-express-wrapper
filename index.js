@@ -8,7 +8,11 @@ module.exports = function (PrismaClient, ...middlewares) {
       try {
         let prisma = new PrismaClient();
         middlewares.map((middleware) => {
-          prisma.$use(middleware);
+          if (middleware.prisma) {
+            prisma.$use(middleware(prisma));
+          } else {
+            prisma.$use(middleware);
+          }
         });
         await prisma.$transaction(async (tx) => {
           req.prisma = tx;
