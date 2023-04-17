@@ -1,0 +1,23 @@
+{
+  "name": "@gemicart/prisma-express-wrapper",
+  "version": "0.0.1",
+  "description": "this module provides a  prisma transaction wrapper that automatically wraps all router functions with prisma transactions. This ensures that all database operations performed within a router function are atomic and consistent.",
+  "main": "index.js",
+  "keywords": [
+    "prisma",
+    "transaction",
+    "router",
+    "warpper",
+    "express"
+  ],
+  "homepage": "https://github.com/gemicart/prisma-express-wrapper",
+  "bin": {
+    "prisma-history": "./index.js"
+  },
+  "author": "gemicart Tech Team",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gemicart/prisma-express-wrapper"
+  }
+}
