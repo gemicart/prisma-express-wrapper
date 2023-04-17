@@ -1,6 +1,9 @@
 module.exports = function (PrismaClient, ...middlewares) {
   const init_routeCalls = ['all', 'get', 'post', 'put', 'delete'];
   const txWrapper = (originalFunction) => {
+    if (Array.isArray(originalFunction)) {
+      return originalFunction.map(txWrapper);
+    }
     return async function (req, res, next) {
       try {
         let prisma = new PrismaClient();
