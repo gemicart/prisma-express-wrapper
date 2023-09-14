@@ -1,4 +1,4 @@
-module.exports = function (PrismaClient, ...middlewares) {
+module.exports = function (prisma) {
   const init_routeCalls = ['all', 'get', 'post', 'put', 'delete'];
   const txWrapper = (originalFunction) => {
     if (Array.isArray(originalFunction)) {
@@ -6,14 +6,6 @@ module.exports = function (PrismaClient, ...middlewares) {
     }
     return async function (req, res, next) {
       try {
-        let prisma = new PrismaClient();
-        middlewares.map((middleware) => {
-          if (middleware.prisma) {
-            prisma.$use(middleware(prisma));
-          } else {
-            prisma.$use(middleware);
-          }
-        });
         await prisma.$transaction(async (tx) => {
           req.prisma = tx;
           await originalFunction(req, res, next);
