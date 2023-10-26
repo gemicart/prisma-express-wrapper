@@ -18,10 +18,10 @@ module.exports = function (prisma) {
 
   const patchRouter = (router, routeCalls = init_routeCalls) => {
     for (const call of routeCalls) {
-      router[call + '_toWrap'] = router[call];
+      router[call + '_noWrap'] = router[call];
       const rep = {
         [call]: function (path, ...callbacks) {
-          return router[call + '_toWrap'](path, ...callbacks.map(txWrapper));
+          return router[call + '_noWrap'](path, ...callbacks.map(txWrapper));
         },
       };
       router[call] = rep[call];
